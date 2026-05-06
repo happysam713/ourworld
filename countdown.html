@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>1 Year with My Sunshine ☀️</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    background:linear-gradient(160deg,#FFF4E6 0%,#FFE8CC 50%,#FFDDB3 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:40px 20px;
+    overflow-x:hidden;
+  }
+
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  .star{position:absolute;width:4px;height:4px;background:#FFD966;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);opacity:0;}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(0.8);}50%{opacity:0.7;transform:scale(1.2);}}
+
+  .container{
+    position:relative;z-index:1;
+    max-width:500px;width:100%;
+    text-align:center;
+  }
+
+  .sun-wrap{position:relative;margin:0 auto 32px;width:100px;height:100px;}
+  .sun{
+    width:100px;height:100px;
+    background:radial-gradient(circle,#FFD966 40%,#FFB347 100%);
+    border-radius:50%;
+    animation:pulse 3s ease-in-out infinite;
+    box-shadow:0 0 0 0 rgba(255,185,80,0.4);
+    position:relative;z-index:2;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 30px 5px rgba(255,185,80,0.3);}
+    50%{box-shadow:0 0 60px 20px rgba(255,185,80,0.5);}
+  }
+  .ray{
+    position:absolute;top:50%;left:50%;
+    width:8px;height:30px;
+    background:#FFD966;border-radius:4px;
+    transform-origin:4px 60px;
+    opacity:0.7;
+  }
+
+  .subtitle{
+    font-size:12px;letter-spacing:0.2em;color:#D4600A;
+    font-weight:500;text-transform:uppercase;margin-bottom:12px;
+  }
+
+  h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(26px,7vw,40px);
+    color:#5C2B00;line-height:1.2;margin-bottom:6px;
+  }
+  h1 em{color:#D4600A;font-style:italic;}
+
+  .names{
+    font-size:14px;color:#9A5C2C;margin-bottom:36px;
+    font-weight:300;letter-spacing:0.04em;
+  }
+  .names strong{font-weight:500;color:#7A3B00;}
+
+  .countdown{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+    margin-bottom:28px;
+  }
+
+  .cd-block{
+    background:white;
+    border-radius:16px;
+    border:1.5px solid #FFD199;
+    padding:16px 8px 12px;
+    display:flex;flex-direction:column;align-items:center;
+  }
+
+  .cd-num{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(28px,8vw,42px);
+    color:#D4600A;font-weight:700;
+    line-height:1;margin-bottom:6px;
+    transition:all 0.3s ease;
+  }
+
+  .cd-label{
+    font-size:10px;letter-spacing:0.15em;
+    color:#B06020;font-weight:500;
+    text-transform:uppercase;
+  }
+
+  .progress-wrap{
+    background:white;border-radius:16px;
+    border:1.5px solid #FFD199;
+    padding:20px;margin-bottom:20px;
+  }
+
+  .progress-top{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:12px;
+  }
+
+  .progress-top span{font-size:12px;color:#9A5C2C;}
+  .progress-top strong{font-size:13px;color:#D4600A;font-weight:600;}
+
+  .bar-track{
+    height:10px;background:#FFE8CC;border-radius:10px;overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,#FFB347,#D4600A);
+    border-radius:10px;
+    transition:width 1s ease;
+  }
+
+  .progress-bottom{
+    display:flex;justify-content:space-between;margin-top:8px;
+  }
+  .progress-bottom span{font-size:11px;color:#B06020;}
+
+  .love-note{
+    background:linear-gradient(160deg,#FFF4E6,#FFE8CC);
+    border-radius:16px;border:1.5px solid #FFD199;
+    padding:24px 20px;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(13px,3.5vw,16px);
+    color:#5C2B00;line-height:1.8;
+    font-style:italic;
+    position:relative;overflow:hidden;
+    margin-bottom:20px;
+  }
+
+  .love-note::before{
+    content:'"';font-size:100px;color:rgba(212,96,10,0.07);
+    position:absolute;top:-10px;left:8px;line-height:1;
+    pointer-events:none;font-style:italic;
+  }
+
+  .lang-pills{
+    display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+    margin-top:14px;
+  }
+  .lang-pill{
+    background:rgba(212,96,10,0.1);color:#7A3B00;
+    padding:4px 12px;border-radius:20px;font-size:11px;
+    font-weight:500;font-style:normal;font-family:'DM Sans',sans-serif;
+  }
+
+  .footer{
+    font-size:11px;color:#B06020;opacity:0.7;
+    letter-spacing:0.06em;
+  }
+
+  .flip{animation:flipNum 0.4s ease;}
+  @keyframes flipNum{
+    0%{transform:translateY(-8px);opacity:0;}
+    100%{transform:translateY(0);opacity:1;}
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <div class="sun-wrap">
+    <div class="sun" id="sunEl"></div>
+  </div>
+
+  <p class="subtitle">✦ counting down ✦</p>
+
+  <h1>1 <em>Year</em> of<br>My Sunshine</h1>
+  <p class="names"><strong>Oluwaseun</strong> &amp; <strong>Happiness</strong> · July 13, 2026</p>
+
+  <div class="countdown">
+    <div class="cd-block"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Days</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-h">--</div><div class="cd-label">Hours</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-m">--</div><div class="cd-label">Mins</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-s">--</div><div class="cd-label">Secs</div></div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span>Journey started</span>
+      <strong id="pct-label">0% to 1 year</strong>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+    <div class="progress-bottom">
+      <span>July 13, 2025</span>
+      <span>July 13, 2026 🎉</span>
+    </div>
+  </div>
+
+  <div class="love-note">
+    Nkem, one year won't be enough.<br>
+    But I'll take it — and every year after.<br>
+    <span style="font-size:13px;color:#D4600A;">— Oluwaseun, always yours</span>
+    <div class="lang-pills">
+      <span class="lang-pill">Mo nifẹ rẹ — Yoruba</span>
+      <span class="lang-pill">A hụrụ m gị n'anya — Igbo</span>
+    </div>
+  </div>
+
+  <p class="footer">made with love, for Happiness Ibeh ✦</p>
+
+</div>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<40;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;`;
+    starsEl.appendChild(s);
+  }
+
+  const sunEl=document.getElementById('sunEl');
+  for(let i=0;i<12;i++){
+    const r=document.createElement('div');
+    r.className='ray';
+    r.style.transform=`rotate(${i*30}deg) translateY(-60px)`;
+    r.style.animation=`rayRotate ${20+(i%3)}s linear infinite`;
+    r.style.animationDelay=`${i*0.2}s`;
+    sunEl.appendChild(r);
+  }
+
+  const style=document.createElement('style');
+  style.textContent=`@keyframes rayRotate{from{transform:rotate(0deg) translateY(-60px);}to{transform:rotate(360deg) translateY(-60px);}}`;
+  document.head.appendChild(style);
+
+  const target = new Date('2026-07-13T00:00:00+01:00');
+  const start  = new Date('2025-07-13T00:00:00+01:00');
+  const totalMs = target - start;
+
+  let prevD='',prevH='',prevM='',prevS='';
+
+  function pad(n){return String(Math.max(0,n)).padStart(2,'0');}
+
+  function flipIf(id,val,prev){
+    if(val!==prev){
+      const el=document.getElementById(id);
+      el.textContent=val;
+      el.classList.remove('flip');
+      void el.offsetWidth;
+      el.classList.add('flip');
+    }
+    return val;
+  }
+
+  function tick(){
+    const now=new Date();
+    const diff=target-now;
+
+    if(diff<=0){
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>document.getElementById(id).textContent='🎉');
+      document.getElementById('bar').style.width='100%';
+      document.getElementById('pct-label').textContent='1 Year! Happy Anniversary! 🎉';
+      return;
+    }
+
+    const days=Math.floor(diff/(1000*60*60*24));
+    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+    const secs=Math.floor((diff%(1000*60))/1000);
+
+    const D=pad(days),H=pad(hours),M=pad(mins),S=pad(secs);
+
+    prevD=flipIf('cd-d',D,prevD);
+    prevH=flipIf('cd-h',H,prevH);
+    prevM=flipIf('cd-m',M,prevM);
+    prevS=flipIf('cd-s',S,prevS);
+
+    const elapsed=totalMs-(target-now);
+    const pct=Math.min(100,Math.max(0,(elapsed/totalMs)*100));
+    document.getElementById('bar').style.width=pct.toFixed(2)+'%';
+    document.getElementById('pct-label').textContent=pct.toFixed(1)+'% to 1 year';
+  }
+
+  tick();
+  setInterval(tick,1000);
+</script>
+</body>
+</html>
