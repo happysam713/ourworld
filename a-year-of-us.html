@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Year of Us 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --orange:#D4600A;
+  --orange-light:#FFB347;
+  --sun:#FFD966;
+  --cream:#FFF8F0;
+  --cream-mid:#FFE8CC;
+  --cream-dark:#FFDDB3;
+  --brown-dark:#5C2B00;
+  --brown-mid:#7A3B00;
+  --brown-light:#9A5C2C;
+  --border:#FFD199;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--brown-dark);
+  overflow-x:hidden;
+}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;
+  background:linear-gradient(160deg,#FFF4E6 0%,#FFE8CC 50%,#FFDDB3 100%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:40px 24px;
+  position:relative;overflow:hidden;
+}
+
+.cover-sun{
+  width:110px;height:110px;
+  background:radial-gradient(circle,#FFD966 40%,#FFB347 100%);
+  border-radius:50%;
+  margin:0 auto 32px;
+  position:relative;
+  animation:sunPulse 3s ease-in-out infinite;
+  box-shadow:0 0 60px rgba(255,185,80,0.4);
+}
+@keyframes sunPulse{
+  0%,100%{box-shadow:0 0 40px rgba(255,185,80,0.4);}
+  50%{box-shadow:0 0 80px rgba(255,185,80,0.7);}
+}
+.ray{
+  position:absolute;top:50%;left:50%;
+  width:8px;height:28px;
+  background:#FFD966;border-radius:4px;
+  transform-origin:4px 66px;opacity:0.75;
+}
+
+.cover-eyebrow{
+  font-size:11px;letter-spacing:0.22em;color:var(--orange);
+  font-weight:500;text-transform:uppercase;margin-bottom:12px;
+}
+.cover-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,10vw,64px);
+  color:var(--brown-dark);line-height:1.1;margin-bottom:12px;
+}
+.cover-title em{color:var(--orange);font-style:italic;}
+.cover-sub{
+  font-size:15px;color:var(--brown-light);font-weight:300;
+  margin-bottom:8px;
+}
+.cover-names{
+  font-family:'Playfair Display',serif;
+  font-size:20px;color:var(--brown-mid);
+  margin-bottom:40px;font-style:italic;
+}
+
+.scroll-hint{
+  font-size:12px;color:var(--brown-light);letter-spacing:0.1em;
+  animation:bounce 2s ease-in-out infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0);opacity:0.7;}
+  50%{transform:translateY(6px);opacity:1;}
+}
+
+/* ── NAV ── */
+.sticky-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,248,240,0.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px;
+  display:flex;align-items:center;gap:12px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.sticky-nav::-webkit-scrollbar{display:none;}
+.nav-brand{
+  font-family:'Playfair Display',serif;
+  font-size:16px;color:var(--brown-dark);
+  font-style:italic;white-space:nowrap;flex-shrink:0;
+}
+.nav-pills{display:flex;gap:8px;flex-shrink:0;}
+.nav-pill{
+  background:white;border:1px solid var(--border);
+  border-radius:20px;padding:5px 14px;
+  font-size:11px;font-weight:500;color:var(--brown-mid);
+  cursor:pointer;white-space:nowrap;transition:all 0.2s ease;
+  text-decoration:none;
+}
+.nav-pill:hover{background:var(--cream-mid);border-color:var(--orange);color:var(--orange);}
+
+/* ── CHAPTERS ── */
+.chapters{max-width:740px;margin:0 auto;padding:0 20px 80px;}
+
+.chapter{
+  padding:60px 0 20px;
+  border-bottom:1px solid var(--border);
+}
+.chapter:last-child{border-bottom:none;}
+
+.chapter-header{
+  display:flex;align-items:flex-start;gap:16px;
+  margin-bottom:28px;
+}
+.chapter-num{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sun),var(--orange-light));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:18px;color:var(--brown-dark);font-weight:700;
+  flex-shrink:0;
+}
+.chapter-meta{}
+.chapter-date{
+  font-size:11px;letter-spacing:0.18em;color:var(--orange);
+  font-weight:500;text-transform:uppercase;margin-bottom:4px;
+}
+.chapter-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,5vw,26px);color:var(--brown-dark);
+  line-height:1.2;margin-bottom:4px;
+}
+.chapter-title em{color:var(--orange);font-style:italic;}
+.chapter-sub{font-size:13px;color:var(--brown-light);font-weight:300;}
+
+/* ── PHOTO GRIDS ── */
+.photo-grid-1,.photo-grid-2,.photo-grid-3,.photo-grid-4{
+  display:grid;gap:10px;margin-bottom:20px;
+}
+.photo-grid-1{grid-template-columns:1fr;}
+.photo-grid-2{grid-template-columns:repeat(2,1fr);}
+.photo-grid-3{grid-template-columns:repeat(3,1fr);}
+.photo-grid-4{grid-template-columns:repeat(2,1fr);}
+
+@media(max-width:480px){
+  .photo-grid-3{grid-template-columns:repeat(2,1fr);}
+  .photo-grid-4{grid-template-columns:1fr;}
+}
+
+.photo-slot{
+  border-radius:14px;overflow:hidden;
+  position:relative;background:var(--cream-mid);
+  border:1.5px dashed var(--border);
+  aspect-ratio:4/3;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.2s ease;
+}
+.photo-slot:hover{border-color:var(--orange);background:var(--cream-dark);}
+.photo-slot img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:12px;display:none;
+}
+.photo-slot.has-photo img{display:block;}
+.photo-slot.has-photo .placeholder-inner{display:none;}
+
+.placeholder-inner{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  pointer-events:none;
+}
+.placeholder-icon{font-size:28px;opacity:0.5;}
+.placeholder-label{
+  font-size:11px;color:var(--brown-light);
+  font-weight:500;letter-spacing:0.06em;text-align:center;
+  padding:0 12px;
+}
+
+.photo-slot input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
+
+.portrait{aspect-ratio:3/4;}
+.wide{aspect-ratio:16/9;}
+
+/* VIDEO SLOT */
+.video-slot{
+  border-radius:14px;overflow:hidden;
+  background:var(--cream-mid);
+  border:1.5px dashed var(--border);
+  aspect-ratio:16/9;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  margin-bottom:20px;
+}
+.video-slot iframe{width:100%;height:100%;border:none;display:none;}
+.video-placeholder{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-align:center;padding:20px;
+}
+.video-play{
+  font-size:40px;opacity:0.4;
+}
+.video-label{font-size:12px;color:var(--brown-light);font-weight:500;max-width:200px;}
+.video-input{
+  margin-top:10px;border:1px solid var(--border);
+  border-radius:8px;padding:8px 12px;font-size:12px;
+  color:var(--brown-mid);background:white;
+  font-family:'DM Sans',sans-serif;width:100%;max-width:300px;
+}
+.video-btn{
+  margin-top:8px;background:var(--orange);color:white;
+  border:none;border-radius:20px;padding:7px 18px;
+  font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;
+}
+
+/* CAPTION */
+.caption{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(14px,3.5vw,17px);
+  color:var(--brown-dark);line-height:1.85;
+  font-style:italic;
+  border-left:3px solid var(--border);
+  padding-left:16px;
+  margin-bottom:20px;
+  border-radius:0;
+}
+.caption-sig{
+  font-size:12px;color:var(--orange);
+  font-style:normal;font-weight:500;
+  font-family:'DM Sans',sans-serif;
+  margin-top:8px;display:block;
+}
+
+/* TAG PILLS */
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.tag{
+  background:var(--cream-mid);color:var(--brown-mid);
+  border:1px solid var(--border);
+  padding:4px 12px;border-radius:20px;font-size:11px;font-weight:500;
+}
+
+/* LOVE NOTE (final) */
+.love-final{
+  background:linear-gradient(160deg,var(--cream-mid),var(--cream-dark));
+  border-radius:20px;border:1.5px solid var(--border);
+  padding:36px 28px;text-align:center;margin-top:40px;
+  position:relative;overflow:hidden;
+}
+.love-final::before{
+  content:'"';
+  font-family:'Playfair Display',serif;font-size:120px;
+  color:rgba(212,96,10,0.07);
+  position:absolute;top:-10px;left:10px;line-height:1;pointer-events:none;
+}
+.love-final p{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(15px,3.5vw,19px);
+  color:var(--brown-dark);line-height:1.85;font-style:italic;
+  margin-bottom:14px;
+}
+.lang-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px;}
+.lang-pill{
+  background:rgba(212,96,10,0.1);color:var(--brown-mid);
+  padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;padding:24px 20px;
+  font-size:11px;color:var(--brown-light);opacity:0.7;
+  letter-spacing:0.06em;
+}
+
+/* Stars */
+.star{
+  position:fixed;width:3px;height:3px;
+  background:var(--sun);border-radius:50%;
+  pointer-events:none;z-index:0;
+  animation:twinkle var(--d) ease-in-out infinite var(--delay);opacity:0;
+}
+@keyframes twinkle{
+  0%,100%{opacity:0;}50%{opacity:0.5;}
+}
+
+/* Scroll reveal */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-sun" id="coverSun"></div>
+  <p class="cover-eyebrow">✦ july 2025 – july 2026 ✦</p>
+  <h1 class="cover-title">A <em>Year</em><br>of Us</h1>
+  <p class="cover-sub">Every moment. Every memory. Every visit.</p>
+  <p class="cover-names">Oluwaseun & Happiness</p>
+  <p class="scroll-hint">↓ scroll through our story</p>
+</div>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <span class="nav-brand">A Year of Us</span>
+  <div class="nav-pills">
+    <a class="nav-pill" href="#ch1">The Beginning</a>
+    <a class="nav-pill" href="#ch2">First Videos</a>
+    <a class="nav-pill" href="#ch3">Work Days</a>
+    <a class="nav-pill" href="#ch4">Job Interview</a>
+    <a class="nav-pill" href="#ch5">The Move</a>
+    <a class="nav-pill" href="#ch6">Lagos & Ogun</a>
+    <a class="nav-pill" href="#ch7">Baecations</a>
+    <a class="nav-pill" href="#ch8">Birthday</a>
+    <a class="nav-pill" href="#ch9">Christmas</a>
+    <a class="nav-pill" href="#ch10">New Year</a>
+    <a class="nav-pill" href="#ch11">Valentine's</a>
+    <a class="nav-pill" href="#ch12">Ramadan & April</a>
+  </div>
+</nav>
+
+<!-- CHAPTERS -->
+<div class="chapters">
+
+  <!-- CH1 -->
+  <div class="chapter reveal" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-num">1</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">July 13, 2025</p>
+        <h2 class="chapter-title">The Day <em>Time Stood Still</em></h2>
+        <p class="chapter-sub">The beginning of everything</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">First meeting</span>
+      <span class="tag">No pictures needed</span>
+      <span class="tag">Already written in the heart</span>
+    </div>
+    <div class="caption">
+      We met. We talked. We laughed. And without trying, we started.<br>
+      No camera could have caught what happened between us that day —<br>
+      it was the kind of moment that lives in the chest, not a photo album.<br>
+      It felt like we had always known each other.<br>
+      <span class="caption-sig">— July 13, 2025. The day everything changed.</span>
+    </div>
+  </div>
+
+  <!-- CH2 -->
+  <div class="chapter reveal" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-num">2</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">July 23, 2025</p>
+        <h2 class="chapter-title">Chilling at <em>Home</em></h2>
+        <p class="chapter-sub">First videos together — just us</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Home vibes</span>
+      <span class="tag">10 days in</span>
+      <span class="tag">Already comfortable</span>
+    </div>
+    <div class="video-slot" id="videoSlot">
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div class="video-play">▶</div>
+        <p class="video-label">Add your video link (YouTube or Google Drive embed URL)</p>
+        <input class="video-input" id="videoUrl" type="text" placeholder="Paste embed URL here..." />
+        <button class="video-btn" onclick="embedVideo()">Add Video</button>
+      </div>
+      <iframe id="videoFrame" allowfullscreen></iframe>
+    </div>
+    <div class="caption">
+      Just 10 days in and already so comfortable. Already so us.<br>
+      No filter, no pose — just two people who fit.<br>
+      <span class="caption-sig">— Chilling at home. July 23, 2025.</span>
+    </div>
+  </div>
+
+  <!-- CH3 -->
+  <div class="chapter reveal" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-num">3</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">August 2025</p>
+        <h2 class="chapter-title">First Day at <em>Work Together</em></h2>
+        <p class="chapter-sub">Work days that became memories</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Work mode</span>
+      <span class="tag">Still smiling</span>
+      <span class="tag">My coworker my heart</span>
+    </div>
+    <div class="photo-grid-3">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="First day at work together"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">First work day</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="At work together"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">At work</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Her at work"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Her at work ✨</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      She made work look beautiful. She made everything look beautiful.<br>
+      Even in work mode, she was my sunshine.<br>
+      <span class="caption-sig">— Work days, August 2025.</span>
+    </div>
+  </div>
+
+  <!-- CH4 -->
+  <div class="chapter reveal" id="ch4">
+    <div class="chapter-header">
+      <div class="chapter-num">4</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">2025</p>
+        <h2 class="chapter-title">The <em>Job Interview</em> Day</h2>
+        <p class="chapter-sub">She was there while I chased the dream</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Big moment</span>
+      <span class="tag">She was my calm</span>
+      <span class="tag">Home base</span>
+    </div>
+    <div class="photo-grid-2">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Job interview day"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Interview day at home</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Job interview day"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Us that day</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      I was nervous. She was steady. That's what she does —<br>
+      she makes you believe things will work out, just by being there.<br>
+      <span class="caption-sig">— The day I went after the future. With her beside me.</span>
+    </div>
+  </div>
+
+  <!-- CH5 -->
+  <div class="chapter reveal" id="ch5">
+    <div class="chapter-header">
+      <div class="chapter-num">5</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">2025</p>
+        <h2 class="chapter-title">The Day I <em>Left Lagos</em></h2>
+        <p class="chapter-sub">Relocating to Ode-Remo, Ogun State</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">New chapter</span>
+      <span class="tag">Ode-Remo bound</span>
+      <span class="tag">Distance is just distance</span>
+    </div>
+    <div class="photo-grid-2">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Leaving Lagos"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Leaving Lagos</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Goodbye Lagos"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Last moment before I left</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      I left Lagos but I didn't leave her. Distance was new —<br>
+      but us was stronger than distance.<br>
+      Ode-Remo was a new beginning. She was the reason it didn't feel like an end.<br>
+      <span class="caption-sig">— The move to Ogun State.</span>
+    </div>
+  </div>
+
+  <!-- CH6 -->
+  <div class="chapter reveal" id="ch6">
+    <div class="chapter-header">
+      <div class="chapter-num">6</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">2025</p>
+        <h2 class="chapter-title">Lagos Visit & <em>She Came to Ogun</em></h2>
+        <p class="chapter-sub">First visits across the distance</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Lagos trip</span>
+      <span class="tag">First Ogun visit</span>
+      <span class="tag">New apartment</span>
+    </div>
+    <div class="photo-grid-2">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Lagos visit"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Lagos visit — I came back</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="She came to Ogun"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">She came to my apartment ✨</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      She walked into my new apartment and made it feel like home.<br>
+      That's the thing about her — wherever she is, that's where home is.<br>
+      <span class="caption-sig">— First visits. First home together.</span>
+    </div>
+  </div>
+
+  <!-- CH7 -->
+  <div class="chapter reveal" id="ch7">
+    <div class="chapter-header">
+      <div class="chapter-num">7</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">2025 – 2026</p>
+        <h2 class="chapter-title">The <em>Baecations</em></h2>
+        <p class="chapter-sub">1, 2, 3, 4 — every visit, a getaway</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Baecation 1</span>
+      <span class="tag">Baecation 2</span>
+      <span class="tag">Baecation 3</span>
+      <span class="tag">Baecation 4</span>
+    </div>
+    <div class="photo-grid-4">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Baecation 1"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Baecation 1 💛</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Baecation 2"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Baecation 2 🧡</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Baecation 3"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Baecation 3 ✨</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Baecation 4"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">Baecation 4 ☀️</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      We turned every visit into a baecation. Four of them —<br>
+      four times she packed a bag and chose me.<br>
+      My station became our station.<br>
+      <span class="caption-sig">— Baecations 1 through 4. Every single one, perfect.</span>
+    </div>
+  </div>
+
+  <!-- CH8 -->
+  <div class="chapter reveal" id="ch8">
+    <div class="chapter-header">
+      <div class="chapter-num">8</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">November 24, 2025</p>
+        <h2 class="chapter-title">She Came for <em>My Birthday</em></h2>
+        <p class="chapter-sub">Nov 24 — the gift I didn't have to unwrap</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Birthday boy</span>
+      <span class="tag">She showed up</span>
+      <span class="tag">Best gift</span>
+    </div>
+    <div class="photo-grid-2">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Birthday"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🎂</div><p class="placeholder-label">My birthday with her</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Birthday"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🎂</div><p class="placeholder-label">November 24 ✨</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      She didn't just remember my birthday. She showed up for it.<br>
+      That's Happiness Ibeh — she doesn't just say things, she does them.<br>
+      Best birthday. No contest.<br>
+      <span class="caption-sig">— November 24, 2025. 🎂</span>
+    </div>
+  </div>
+
+  <!-- CH9 -->
+  <div class="chapter reveal" id="ch9">
+    <div class="chapter-header">
+      <div class="chapter-num">9</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">December 21–24, 2025</p>
+        <h2 class="chapter-title">Our <em>Christmas Season</em></h2>
+        <p class="chapter-sub">First church service together & Christmas Eve chilling</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Dec 21 — First church together</span>
+      <span class="tag">Dec 24 — Chill mode</span>
+    </div>
+    <div class="photo-grid-3">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Church service"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">⛪</div><p class="placeholder-label">First church together</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Christmas Eve"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🎄</div><p class="placeholder-label">Christmas Eve 24th</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Christmas chilling"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🧡</div><p class="placeholder-label">Chilling Dec 24</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      First church service together — December 21st.<br>
+      Praying beside her felt like the most natural thing in the world.<br>
+      Then Christmas Eve, just us, chilling. Quiet and perfect.<br>
+      <span class="caption-sig">— Christmas season, 2025.</span>
+    </div>
+  </div>
+
+  <!-- CH10 -->
+  <div class="chapter reveal" id="ch10">
+    <div class="chapter-header">
+      <div class="chapter-num">10</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">December 31, 2025 – January 3, 2026</p>
+        <h2 class="chapter-title">New Year's Eve & <em>New Year Together</em></h2>
+        <p class="chapter-sub">We rang in 2026 side by side</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Last night of 2025</span>
+      <span class="tag">First day of 2026</span>
+      <span class="tag">She left Jan 3</span>
+    </div>
+    <div class="photo-grid-2">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="New Year's Eve"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🎆</div><p class="placeholder-label">New Year's Eve</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="New Year's Day"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🎇</div><p class="placeholder-label">New Year's Day 2026</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      The last seconds of 2025 and the first of 2026 — all with her.<br>
+      I can't think of a better way to end a year or begin one.<br>
+      She went back to Lagos on January 3rd, and the apartment got quiet again.<br>
+      <span class="caption-sig">— New Year's, 2025 into 2026.</span>
+    </div>
+  </div>
+
+  <!-- CH11 -->
+  <div class="chapter reveal" id="ch11">
+    <div class="chapter-header">
+      <div class="chapter-num">11</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">January – February 2026</p>
+        <h2 class="chapter-title">January Visit & <em>Valentine's Day</em></h2>
+        <p class="chapter-sub">She came end of Jan, I visited for Valentine's</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">End of January visit</span>
+      <span class="tag">Left Feb 1</span>
+      <span class="tag">Valentine's Feb 14</span>
+      <span class="tag">Left Feb 16</span>
+    </div>
+    <div class="photo-grid-3">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="January visit"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">End of Jan visit</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Valentine's Day"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">💝</div><p class="placeholder-label">Valentine's Day</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Valentine's"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">💝</div><p class="placeholder-label">Feb 14 — us ❤️</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      She visited end of January — left February 1st.<br>
+      I went to her for Valentine's — stayed till the 16th.<br>
+      We kept finding our way back to each other. That's just what we do.<br>
+      <span class="caption-sig">— January & Valentine's, 2026. 💝</span>
+    </div>
+  </div>
+
+  <!-- CH12 -->
+  <div class="chapter reveal" id="ch12">
+    <div class="chapter-header">
+      <div class="chapter-num">12</div>
+      <div class="chapter-meta">
+        <p class="chapter-date">March – April 2026</p>
+        <h2 class="chapter-title">Ramadan Break & <em>April Visits</em></h2>
+        <p class="chapter-sub">March 20 · April 4 · April 19</p>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">March 20 — Ramadan break visit</span>
+      <span class="tag">April 4 — She visits</span>
+      <span class="tag">April 19 — She visits again</span>
+    </div>
+    <div class="photo-grid-3">
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="Ramadan visit"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">🌙</div><p class="placeholder-label">Ramadan break visit</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="April 4"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">April 4 visit 💛</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+      <div class="photo-slot" onclick="this.querySelector('input').click()">
+        <img alt="April 19"/>
+        <div class="placeholder-inner"><div class="placeholder-icon">📸</div><p class="placeholder-label">April 19 visit 🧡</p></div>
+        <input type="file" accept="image/*" onchange="loadPhoto(this)"/>
+      </div>
+    </div>
+    <div class="caption">
+      March 20th — I visited during the Ramadan break.<br>
+      April 4th — she came to me. April 19th — she came again.<br>
+      She keeps choosing the distance. She keeps choosing me.<br>
+      <span class="caption-sig">— Ramadan & April, 2026. Still going. Still us.</span>
+    </div>
+  </div>
+
+  <!-- LOVE NOTE FINAL -->
+  <div class="love-final reveal">
+    <p>
+      One year of choosing each other.<br>
+      Of visits, distances, baecations, and quiet evenings.<br>
+      Of her smile that fixes everything<br>
+      and her name that says it all.
+    </p>
+    <p>
+      Nkem. My Sunshine. My Happiness.<br>
+      This is just the beginning of our story.<br>
+      <span style="font-size:15px;color:var(--orange);">— Oluwaseun, always yours 🧡</span>
+    </p>
+    <div class="lang-pills">
+      <span class="lang-pill">Mo nifẹ rẹ — Yoruba</span>
+      <span class="lang-pill">A hụrụ m gị n'anya — Igbo</span>
+    </div>
+  </div>
+
+</div><!-- /chapters -->
+
+<div class="footer">
+  made with love, for Happiness Ibeh ✦ a year of us
+</div>
+
+<script>
+// Stars
+for(let i=0;i<25;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${Math.random()*6}s;`;
+  document.body.appendChild(s);
+}
+
+// Sun rays
+const coverSun=document.getElementById('coverSun');
+for(let i=0;i<12;i++){
+  const r=document.createElement('div');
+  r.className='ray';
+  r.style.cssText=`transform:rotate(${i*30}deg) translateY(-66px);animation:rayRotate ${18+i%3}s linear infinite;animation-delay:${i*0.15}s;`;
+  coverSun.appendChild(r);
+}
+const rStyle=document.createElement('style');
+rStyle.textContent=`@keyframes rayRotate{from{transform:rotate(0deg) translateY(-66px);}to{transform:rotate(360deg) translateY(-66px);}}`;
+document.head.appendChild(rStyle);
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Photo upload
+function loadPhoto(input){
+  const slot=input.closest('.photo-slot');
+  const img=slot.querySelector('img');
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    img.src=e.target.result;
+    slot.classList.add('has-photo');
+  };
+  reader.readAsDataURL(file);
+}
+
+// Video embed
+function embedVideo(){
+  const url=document.getElementById('videoUrl').value.trim();
+  if(!url)return;
+  const frame=document.getElementById('videoFrame');
+  const placeholder=document.getElementById('videoPlaceholder');
+  frame.src=url;
+  frame.style.display='block';
+  placeholder.style.display='none';
+}
+</script>
+</body>
+</html>
