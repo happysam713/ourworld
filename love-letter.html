@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Love Letter is Waiting 💛</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  background:linear-gradient(160deg,#FFF4E6 0%,#FFE8CC 50%,#FFDDB3 100%);
+  padding:40px 20px 60px;
+  display:flex;flex-direction:column;align-items:center;
+}
+.top{text-align:center;margin-bottom:36px;}
+.eyebrow{font-size:11px;letter-spacing:0.2em;color:#D4600A;font-weight:500;text-transform:uppercase;margin-bottom:10px;}
+.title{font-family:'Playfair Display',serif;font-size:clamp(26px,6vw,38px);color:#5C2B00;line-height:1.2;margin-bottom:8px;}
+.title em{color:#D4600A;font-style:italic;}
+.subtitle{font-size:13px;color:#9A5C2C;font-weight:300;}
+.moods{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;max-width:460px;margin-bottom:32px;}
+.mood-btn{
+  background:white;border:1.5px solid #FFD199;border-radius:16px;
+  padding:18px 12px;cursor:pointer;transition:all 0.2s ease;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-align:center;
+}
+.mood-btn:hover{border-color:#D4600A;background:#FFF4E6;transform:translateY(-2px);}
+.mood-btn.active{border-color:#D4600A;background:#FFF4E6;box-shadow:0 0 0 3px rgba(212,96,10,0.12);}
+.mood-icon{font-size:28px;line-height:1;}
+.mood-name{font-size:13px;font-weight:500;color:#7A3B00;}
+.mood-desc{font-size:11px;color:#B06020;font-weight:300;}
+.generate-btn{
+  background:#D4600A;color:white;border:none;
+  border-radius:50px;padding:14px 40px;
+  font-size:14px;font-weight:500;cursor:pointer;
+  transition:all 0.2s ease;margin-bottom:32px;
+  letter-spacing:0.04em;font-family:'DM Sans',sans-serif;
+  opacity:0.4;pointer-events:none;
+}
+.generate-btn.ready{opacity:1;pointer-events:all;}
+.generate-btn.ready:hover{background:#B05008;transform:translateY(-1px);}
+.generate-btn.ready:active{transform:scale(0.98);}
+.letter-wrap{
+  width:100%;max-width:460px;
+  background:white;border-radius:20px;
+  border:1.5px solid #FFD199;
+  padding:32px 28px;
+  display:none;
+  animation:fadeUp 0.6s ease forwards;
+}
+.letter-wrap.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.letter-mood-tag{
+  display:inline-block;background:#FFE8CC;color:#7A3B00;
+  font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;
+  margin-bottom:16px;letter-spacing:0.06em;text-transform:uppercase;
+}
+.letter-body{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(14px,3.5vw,17px);
+  color:#5C2B00;line-height:1.9;
+  font-style:italic;
+  position:relative;
+  padding-left:16px;
+  border-left:3px solid #FFD199;
+  margin-bottom:20px;
+}
+.letter-sig{font-size:13px;color:#D4600A;font-weight:500;text-align:right;font-family:'DM Sans',sans-serif;}
+.letter-langs{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;justify-content:center;}
+.lang-pill{background:#FFE8CC;color:#7A3B00;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:500;}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center;}
+.action-btn{
+  background:white;border:1.5px solid #FFD199;border-radius:50px;
+  padding:9px 20px;font-size:12px;font-weight:500;color:#7A3B00;
+  cursor:pointer;transition:all 0.2s ease;font-family:'DM Sans',sans-serif;
+}
+.action-btn:hover{border-color:#D4600A;background:#FFF4E6;}
+.loading-dots{display:none;justify-content:center;gap:6px;margin:16px 0;}
+.loading-dots.show{display:flex;}
+.dot{width:8px;height:8px;border-radius:50%;background:#D4600A;animation:bounce 1.2s ease-in-out infinite;}
+.dot:nth-child(2){animation-delay:0.2s;}
+.dot:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,100%{transform:translateY(0);opacity:0.4;}50%{transform:translateY(-8px);opacity:1;}}
+.copy-toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:#5C2B00;color:white;padding:10px 24px;border-radius:50px;
+  font-size:13px;font-weight:500;opacity:0;transition:opacity 0.3s ease;
+  pointer-events:none;font-family:'DM Sans',sans-serif;
+}
+.copy-toast.show{opacity:1;}
+.footer{font-size:11px;color:#B06020;opacity:0.7;margin-top:32px;letter-spacing:0.06em;}
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <p class="eyebrow">✦ a gift from Oluwaseun ✦</p>
+    <h1 class="title">Your <em>love letter</em><br>is waiting</h1>
+    <p class="subtitle">Pick how you're feeling right now, Nkem</p>
+  </div>
+
+  <div class="moods">
+    <button class="mood-btn" data-mood="missing" onclick="selectMood(this)">
+      <span class="mood-icon">🌙</span>
+      <span class="mood-name">Missing you</span>
+      <span class="mood-desc">distance feels heavy today</span>
+    </button>
+    <button class="mood-btn" data-mood="grateful" onclick="selectMood(this)">
+      <span class="mood-icon">🌻</span>
+      <span class="mood-name">Happy & grateful</span>
+      <span class="mood-desc">life feels good right now</span>
+    </button>
+    <button class="mood-btn" data-mood="romantic" onclick="selectMood(this)">
+      <span class="mood-icon">🕯️</span>
+      <span class="mood-name">Feeling romantic</span>
+      <span class="mood-desc">all the butterflies</span>
+    </button>
+    <button class="mood-btn" data-mood="hug" onclick="selectMood(this)">
+      <span class="mood-icon">🧸</span>
+      <span class="mood-name">Need a hug</span>
+      <span class="mood-desc">it's been a long day</span>
+    </button>
+  </div>
+
+  <button class="generate-btn" id="genBtn" onclick="generateLetter()">
+    Write my letter ✦
+  </button>
+
+  <div class="loading-dots" id="loader">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <div class="letter-wrap" id="letterWrap">
+    <span class="letter-mood-tag" id="moodTag"></span>
+    <div class="letter-body" id="letterBody"></div>
+    <p class="letter-sig">— Oluwaseun, always yours 🧡</p>
+    <div class="letter-langs">
+      <span class="lang-pill">Mo nifẹ rẹ — Yoruba</span>
+      <span class="lang-pill">A hụrụ m gị n'anya — Igbo</span>
+    </div>
+    <div class="actions">
+      <button class="action-btn" onclick="copyLetter()">Copy letter</button>
+      <button class="action-btn" onclick="anotherLetter()">Another one ✦</button>
+    </div>
+  </div>
+
+  <p class="footer">made with love, for Happiness Ibeh ✦</p>
+
+<div class="copy-toast" id="toast">Copied to clipboard ✦</div>
+
+<script>
+const letters = {
+  missing: [
+    `Happiness,\n\nI checked my phone again — not for anything in particular. Just for you. That's become a habit now, a quiet ritual I didn't sign up for but wouldn't trade.\n\nThe space where you usually are feels louder than it should. Distance is strange like that — it makes everything heavier and softer at the same time.\n\nI miss your voice first. Then your laugh. Then the way you say nothing and somehow it says everything.\n\nCome back to me soon, Nkem.`,
+    `My Sunshine,\n\nMissing you feels like reaching for something in the dark and your hand isn't there yet — but you know it will be.\n\nI think about our first day a lot when you're not around. How quickly "I just met her" became "I can't imagine without her." You did that. You made yourself necessary without even trying.\n\nUntil I see you again — know that you are thought of, deeply, quietly, constantly.`,
+    `Nkem,\n\nToday felt long without you in it.\n\nI don't say that to be dramatic. I say it because it's honest and because I think you deserve to know that your absence is felt — not just noticed, but truly felt.\n\nYou make ordinary days worth telling someone about. That's not a small thing. That's everything.`
+  ],
+  grateful: [
+    `Happiness,\n\nI woke up today and my first thought was you. Not in a desperate way — in a warm, golden way. Like sunlight through a curtain. Quiet and certain.\n\nI'm grateful for the way you laugh. For the way you care — for me, for others, for things that most people look past. Your kindness is not an accident. It is who you are.\n\nThank you for choosing me, every single day. I don't take it lightly.`,
+    `My Sunshine,\n\nSome days I just sit with how lucky I am and it fills up the whole room.\n\n10 months with you taught me what it means to be truly seen. You notice the small things. You remember. You show up. Not because you have to — because that's just Happiness Ibeh.\n\nNkem — I am grateful in a way words keep failing.`,
+    `Happiness,\n\nIf I wrote down everything I'm thankful for today, your name would be at the top, the middle, and the end.\n\nThe way your smile rearranges a room. The way your kindness is never loud but always present. The way you've made this Yoruba boy feel at home in your world.\n\nI don't know what I did to deserve this, but I promise I will never stop being grateful for it.`
+  ],
+  romantic: [
+    `Nkem,\n\nOur first kiss was soft.\n\nI wasn't expecting it to stop time the way it did. I wasn't expecting to feel like I'd known you for years in a single moment. But that's what you do — you make the impossible feel inevitable.\n\nI am so deeply in love with you. Not the idea of you. Not what you could be. You — right now, exactly as you are.\n\nYou are the best thing that has happened to me in a very long time.`,
+    `My Sunshine,\n\nI think about you in the middle of conversations. A word will remind me of something you said and suddenly you're there, taking up all the best space in my head.\n\nThis is what love feels like, I think. Not the dramatic version. The real one — warm, steady, full. The kind that makes you want to call someone just to say nothing important.\n\nI love you, Happiness. Quietly, completely, and without condition.`,
+    `Happiness,\n\nYou walked in and time had the audacity to stand still.\n\nA Yoruba boy, an Igbo girl — and somehow the universe arranged it perfectly. I believe in that now. I didn't always, but you changed that too.\n\nBeing with you feels like coming home to a place I never lived before. Safe. Familiar. Exactly right.\n\nI choose you. Every morning. Every day. Every time.`
+  ],
+  hug: [
+    `Nkem,\n\nWhatever today put you through — you carried it. And that matters.\n\nI wish I could be there right now, next to you, saying nothing useful but being present in the way that only presence can be. Since I can't — take this instead: you are so deeply loved.\n\nNot because you're strong (though you are). Not because you hold it together (though you do). But because you are you, and that has always been enough.\n\nRest now. I've got you.`,
+    `My Sunshine,\n\nHard days happen to the best people. You are one of the best people.\n\nI know I can't fix everything. But I want you to know that whatever weight you're carrying tonight, you don't have to carry it alone. I'm here — even when I'm not right next to you, I'm here.\n\nYour name means happiness. On the days you feel the opposite, remember: someone out there holds your name like a treasure.\n\nThat someone is me. Always.`,
+    `Happiness,\n\nOn the days when the world is too loud and everything feels heavy — I hope you feel me.\n\nI hope you feel the warmth of someone thinking about you, rooting for you, quietly saying "she's going to be okay" because he knows you. He really knows you.\n\nYou are not alone in this. Not today. Not ever.\n\nI love you, Nkem. Come find me when you're ready.`
+  ]
+};
+
+const moodLabels = {
+  missing:'Missing you',
+  grateful:'Happy & grateful',
+  romantic:'Feeling romantic',
+  hug:'Need a hug'
+};
+
+let selectedMood = null;
+let usedIndexes = {missing:[],grateful:[],romantic:[],hug:[]};
+
+function selectMood(btn) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedMood = btn.dataset.mood;
+  const genBtn = document.getElementById('genBtn');
+  genBtn.classList.add('ready');
+  document.getElementById('letterWrap').classList.remove('show');
+}
+
+function generateLetter() {
+  if (!selectedMood) return;
+  const loader = document.getElementById('loader');
+  const genBtn = document.getElementById('genBtn');
+  genBtn.style.opacity = '0.5';
+  genBtn.style.pointerEvents = 'none';
+  loader.classList.add('show');
+  document.getElementById('letterWrap').classList.remove('show');
+
+  setTimeout(() => {
+    const pool = letters[selectedMood];
+    let available = pool.map((_,i)=>i).filter(i => !usedIndexes[selectedMood].includes(i));
+    if (available.length === 0) { usedIndexes[selectedMood] = []; available = pool.map((_,i)=>i); }
+    const idx = available[Math.floor(Math.random() * available.length)];
+    usedIndexes[selectedMood].push(idx);
+    const text = pool[idx];
+
+    document.getElementById('moodTag').textContent = moodLabels[selectedMood];
+    document.getElementById('letterBody').innerHTML = text.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    loader.classList.remove('show');
+    genBtn.style.opacity = '1';
+    genBtn.style.pointerEvents = 'all';
+    document.getElementById('letterWrap').classList.add('show');
+  }, 1400);
+}
+
+function anotherLetter() { generateLetter(); }
+
+function copyLetter() {
+  const body = document.getElementById('letterBody').innerText;
+  const full = body + '\n\n— Oluwaseun, always yours';
+  navigator.clipboard.writeText(full).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  });
+}
+</script>
+</body>
+</html>
