@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guess Our Memory 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sun: #FFD966;
+    --orange: #D4600A;
+    --orange-light: #FFB347;
+    --cream: #FFF8F0;
+    --cream-mid: #FFE8CC;
+    --brown-dark: #5C2B00;
+    --brown-mid: #7A3B00;
+    --brown-light: #9A5C2C;
+    --border: #FFD199;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(160deg, #FFF4E6 0%, #FFE8CC 50%, #FFDDB3 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Stars */
+  .star {
+    position: fixed;
+    width: 4px; height: 4px;
+    background: var(--sun);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: twinkle var(--d) ease-in-out infinite var(--delay);
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%,100%{opacity:0;transform:scale(0.8);}
+    50%{opacity:0.6;transform:scale(1.3);}
+  }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    width: 100%; max-width: 480px;
+    margin-bottom: 20px;
+  }
+  .progress-top {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--brown-light);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 6px; background: rgba(255,255,255,0.5);
+    border-radius: 6px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange-light), var(--orange));
+    border-radius: 6px;
+    transition: width 0.5s ease;
+  }
+
+  /* Card */
+  .card {
+    background: white;
+    border-radius: 24px;
+    border: 1.5px solid var(--border);
+    padding: 36px 28px 32px;
+    width: 100%; max-width: 480px;
+    box-shadow: 0 8px 40px rgba(212,96,10,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sun), var(--orange-light), var(--orange));
+  }
+
+  .card-eyebrow {
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--orange); font-weight: 500;
+    text-transform: uppercase; margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 28px);
+    color: var(--brown-dark);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .card-title em { color: var(--orange); font-style: italic; }
+
+  .card-sub {
+    font-size: 13px; color: var(--brown-light);
+    text-align: center; font-weight: 300;
+    margin-bottom: 28px;
+  }
+
+  /* Question number badge */
+  .q-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cream-mid); color: var(--orange);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
+    letter-spacing: 0.08em; margin-bottom: 14px;
+  }
+
+  #question {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 4vw, 20px);
+    color: var(--brown-dark);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    min-height: 52px;
+  }
+
+  /* Options */
+  #options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+
+  .option {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 18px;
+    font-size: 14px; font-weight: 500;
+    color: var(--brown-mid);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .option::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg, rgba(255,211,102,0.3), transparent);
+    transition: width 0.3s ease;
+  }
+  .option:hover { border-color: var(--orange); transform: translateX(4px); }
+  .option:hover::before { width: 100%; }
+  .option:disabled { cursor: default; transform: none; }
+  .option.correct { border-color: #4CAF50; background: #F1FFF3; color: #2E7D32; }
+  .option.wrong { border-color: #EF5350; background: #FFF5F5; color: #C62828; }
+  .option.reveal { border-color: #4CAF50; background: #F1FFF3; color: #2E7D32; }
+
+  /* Result */
+  #result {
+    min-height: 36px;
+    font-size: 14px;
+    color: var(--brown-mid);
+    text-align: center;
+    line-height: 1.5;
+    font-style: italic;
+    transition: all 0.3s ease;
+  }
+
+  /* Next button */
+  #nextBtn {
+    display: none;
+    width: 100%;
+    margin-top: 16px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+    transition: all 0.2s ease;
+  }
+  #nextBtn:hover { background: #B05008; transform: translateY(-1px); }
+  #nextBtn:active { transform: scale(0.98); }
+
+  /* Score dots */
+  .score-row {
+    display: flex; gap: 6px; justify-content: center;
+    margin-top: 20px; flex-wrap: wrap;
+  }
+  .score-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--cream-mid); border: 1.5px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  .score-dot.correct { background: #4CAF50; border-color: #4CAF50; }
+  .score-dot.wrong { background: #EF5350; border-color: #EF5350; }
+
+  /* Final screen */
+  .final-wrap { text-align: center; }
+  .final-wrap .score-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px; color: var(--orange);
+    line-height: 1; margin: 16px 0 4px;
+  }
+  .final-wrap .score-label {
+    font-size: 13px; color: var(--brown-light);
+    margin-bottom: 20px;
+  }
+  .final-note {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 3.5vw, 17px);
+    color: var(--brown-dark);
+    line-height: 1.8; font-style: italic;
+    border-left: 3px solid var(--border);
+    padding-left: 16px;
+    text-align: left;
+    margin: 20px 0;
+  }
+  .lang-pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+  .lang-pill {
+    background: var(--cream-mid); color: var(--brown-mid);
+    padding: 5px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+  }
+  .replay-btn {
+    margin-top: 20px;
+    background: var(--orange); color: white; border: none;
+    border-radius: 50px; padding: 13px 32px;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s ease;
+  }
+  .replay-btn:hover { background: #B05008; transform: translateY(-1px); }
+
+  .footer { font-size: 11px; color: var(--brown-light); opacity: 0.7; margin-top: 20px; letter-spacing: 0.06em; }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    top: -10px;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+    border-radius: 2px;
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.4s ease forwards; }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<script>
+  for(let i=0;i<30;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;`;
+    document.body.appendChild(s);
+  }
+</script>
+
+<!-- Progress -->
+<div class="progress-bar-wrap">
+  <div class="progress-top">
+    <span>Guess Our Memory</span>
+    <span id="progLabel">1 of 15</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progFill" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- Card -->
+<div class="card" id="mainCard">
+  <p class="card-eyebrow">✦ a love quiz ✦</p>
+  <h1 class="card-title"><em>Guess</em> Our Memory</h1>
+  <p class="card-sub">How well do you know us, Nkem? 💛</p>
+
+  <div class="q-badge" id="qBadge">Question 1</div>
+  <p id="question"></p>
+  <div id="options"></div>
+  <div id="result"></div>
+  <button id="nextBtn" onclick="nextQuestion()">Next ✦</button>
+
+  <div class="score-row" id="scoreDots"></div>
+</div>
+
+<p class="footer">made with love, for Happiness Ibeh ✦</p>
+
+<script>
+const quiz = [
+  {
+    question: "When did we first meet?",
+    options: ["June 20", "July 13", "August 1", "May 5"],
+    answer: "July 13"
+  },
+  {
+    question: "What did Oluwaseun call you first?",
+    options: ["Baby", "Nkem", "My Sunshine", "Sweetheart"],
+    answer: "My Sunshine"
+  },
+  {
+    question: "Where were we when he first held your hand?",
+    options: ["Outside", "In the car", "In the room", "At a party"],
+    answer: "In the room"
+  },
+  {
+    question: "How did our first kiss feel?",
+    options: ["Fast & funny", "Awkward", "Forgettable", "Time stood still"],
+    answer: "Time stood still"
+  },
+  {
+    question: "What do I love most about you?",
+    options: ["Your height", "Your shoes", "Your smile", "Your cooking"],
+    answer: "Your smile"
+  },
+  {
+    question: "What do I call you the most?",
+    options: ["Madam", "Bestie", "My Sunshine", "Babe"],
+    answer: "My Sunshine"
+  },
+  {
+    question: "What best describes us?",
+    options: ["Just vibes", "Random", "Still figuring it out", "Feels like we've always known each other"],
+    answer: "Feels like we've always known each other"
+  },
+  {
+    question: "Where is Oluwaseun's hometown?",
+    options: ["Ibadan", "Lagos", "Ayetoro Ekiti", "Abeokuta"],
+    answer: "Ayetoro Ekiti"
+  },
+  {
+    question: "Where is Happiness from?",
+    options: ["Enugu", "Aba", "Awka", "Umunze"],
+    answer: "Umunze"
+  },
+  {
+    question: "Who is the best prankster in this relationship? 😂",
+    options: ["Oluwaseun", "It's a tie", "Neither of us", "Happiness"],
+    answer: "Happiness"
+  },
+  {
+    question: "Who is the best cook? 🍳",
+    options: ["Oluwaseun", "We order out", "Happiness", "Nobody cooks"],
+    answer: "Happiness"
+  },
+  {
+    question: "Who is the better singer? 🎤",
+    options: ["Happiness", "We're both terrible", "It's a tie", "Oluwaseun"],
+    answer: "Oluwaseun"
+  },
+  {
+    question: "What is Oluwaseun's least favourite food?",
+    options: ["Eba", "Amala", "Noodles", "Rice"],
+    answer: "Noodles"
+  },
+  {
+    question: "Which artiste would most likely sing at our wedding? 💍",
+    options: ["Timi Dakolo", "Simi", "Burna Boy", "Chike"],
+    answer: "Chike"
+  },
+  {
+    question: "What does 'Nkem' mean?",
+    options: ["My heart", "My sunshine", "My own", "My love"],
+    answer: "My own"
+  }
+];
+
+const roasts = [
+  "😂 Ah ah… are you sure you're my girlfriend?",
+  "😭 This one pain me o",
+  "😩 You dey forget our memories??",
+  "😂 I will remind you myself!",
+  "🤣 Hmm, we need to talk o",
+  "😅 Oya let me brief you again…"
+];
+
+const praises = [
+  "🥰 Correct! You know us too well!",
+  "💛 Yes! That's my sunshine!",
+  "✨ Ehn ehn! You were paying attention!",
+  "🌞 Perfect! I knew you'd get that!",
+  "🧡 Omo! You know this relationship well well!"
+];
+
+let current = 0;
+let score = 0;
+let answers = [];
+
+// Build score dots
+const dotsWrap = document.getElementById('scoreDots');
+quiz.forEach(() => {
+  const d = document.createElement('div');
+  d.className = 'score-dot';
+  dotsWrap.appendChild(d);
+});
+
+function updateProgress() {
+  const pct = (current / quiz.length) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = `${current + 1} of ${quiz.length}`;
+  document.getElementById('qBadge').textContent = `Question ${current + 1}`;
+}
+
+function loadQuestion() {
+  document.getElementById('result').innerText = '';
+  document.getElementById('nextBtn').style.display = 'none';
+  updateProgress();
+
+  const q = quiz[current];
+  const qEl = document.getElementById('question');
+  qEl.classList.remove('fade-up');
+  void qEl.offsetWidth;
+  qEl.classList.add('fade-up');
+  qEl.innerText = q.question;
+
+  const optWrap = document.getElementById('options');
+  optWrap.innerHTML = '';
+  // Shuffle options
+  const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+  shuffled.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt, btn);
+    optWrap.appendChild(btn);
+  });
+}
+
+function checkAnswer(selected, btn) {
+  const correct = quiz[current].answer;
+  const allBtns = document.querySelectorAll('.option');
+  allBtns.forEach(b => b.disabled = true);
+
+  const dots = document.querySelectorAll('.score-dot');
+
+  if (selected === correct) {
+    score++;
+    answers.push(true);
+    btn.classList.add('correct');
+    dots[current].classList.add('correct');
+    const praise = praises[Math.floor(Math.random() * praises.length)];
+    document.getElementById('result').innerText = praise;
+  } else {
+    answers.push(false);
+    btn.classList.add('wrong');
+    dots[current].classList.add('wrong');
+    // Highlight correct
+    allBtns.forEach(b => { if (b.textContent === correct) b.classList.add('reveal'); });
+    const roast = roasts[Math.floor(Math.random() * roasts.length)];
+    document.getElementById('result').innerText = roast + ' Correct: ' + correct;
+  }
+
+  document.getElementById('nextBtn').style.display = 'block';
+}
+
+function nextQuestion() {
+  current++;
+  if (current < quiz.length) {
+    loadQuestion();
+  } else {
+    showFinal();
+  }
+}
+
+function getScoreMessage(s, total) {
+  const pct = s / total;
+  if (pct === 1) return "Perfect score! You know this love story by heart. 🌟";
+  if (pct >= 0.8) return "You know us so well, Nkem. I'm impressed. 💛";
+  if (pct >= 0.6) return "Not bad at all! A few things to remember though… 😄";
+  if (pct >= 0.4) return "Hmm… we need to go over our story again o. 😂";
+  return "Ah ah! Nkem, I have work to do. 😭 But I still love you sha.";
+}
+
+function showFinal() {
+  launchConfetti();
+  const msg = getScoreMessage(score, quiz.length);
+  document.getElementById('mainCard').innerHTML = `
+    <div class="final-wrap fade-up">
+      <p class="card-eyebrow">✦ Quiz Complete ✦</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,28px);color:var(--brown-dark);margin-bottom:4px;">You scored</h2>
+      <div class="score-big">${score}<span style="font-size:32px;color:var(--brown-light)">/${quiz.length}</span></div>
+      <p class="score-label">${msg}</p>
+      <div class="final-note">
+        Nkem, no matter the score — you are my sunshine.<br>
+        10 months and I would choose you all over again.<br>
+        <span style="font-size:13px;color:var(--orange);">— Oluwaseun, always yours 🧡</span>
+      </div>
+      <div class="lang-pills">
+        <span class="lang-pill">Mo nifẹ rẹ — Yoruba</span>
+        <span class="lang-pill">A hụrụ m gị n'anya — Igbo</span>
+      </div>
+      <button class="replay-btn" onclick="restartQuiz()">Play again ✦</button>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  current = 0; score = 0; answers = [];
+  document.getElementById('mainCard').innerHTML = `
+    <p class="card-eyebrow">✦ a love quiz ✦</p>
+    <h1 class="card-title"><em>Guess</em> Our Memory</h1>
+    <p class="card-sub">How well do you know us, Nkem? 💛</p>
+    <div class="q-badge" id="qBadge">Question 1</div>
+    <p id="question"></p>
+    <div id="options"></div>
+    <div id="result"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Next ✦</button>
+    <div class="score-row" id="scoreDots"></div>
+  `;
+  const dotsWrap = document.getElementById('scoreDots');
+  quiz.forEach(() => {
+    const d = document.createElement('div');
+    d.className = 'score-dot';
+    dotsWrap.appendChild(d);
+  });
+  loadQuestion();
+}
+
+function launchConfetti() {
+  const colors = ['#FFD966','#D4600A','#FFB347','#FF4D6D','#6A5ACD','#FFF4E6'];
+  for(let i=0;i<120;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.cssText=`
+      left:${Math.random()*100}vw;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${6+Math.random()*8}px;
+      height:${6+Math.random()*8}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${2+Math.random()*3}s;
+      animation-delay:${Math.random()*1.5}s;
+    `;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 5000);
+  }
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
