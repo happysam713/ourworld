@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Happiness 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ffd6e8, #f3d1ff, #ffe1f4);
+        overflow-x: hidden;
+        color: #5a3e68;
+    }
+
+    /* Floating Bubbles */
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        animation: floatUp 14s infinite;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(100vh) scale(0.7); opacity: 0.6; }
+        50% { opacity: 0.9; }
+        100% { transform: translateY(-150px) scale(1); opacity: 0; }
+    }
+
+    .bubble-text {
+        opacity: 0;
+        text-align: center;
+        font-family: 'Lora', serif;
+        font-size: 16px;
+        transition: opacity 0.4s ease;
+        padding: 10px;
+        line-height: 1.4;
+        color: #6a4679;
+    }
+
+    .bubble.open {
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 0 40px rgba(255, 255, 255, 1);
+        transform: scale(1.2);
+        z-index: 10;
+        animation: none;
+    }
+
+    .bubble.open .bubble-text {
+        opacity: 1;
+    }
+
+    /* Title */
+    .main-title {
+        text-align: center;
+        padding: 120px 20px 40px;
+        color: #7b4a88;
+    }
+
+    .main-title h1 {
+        font-family: 'Great Vibes', cursive;
+        font-size: clamp(48px, 10vw, 85px);
+        margin-bottom: 10px;
+    }
+
+    .main-title p {
+        font-size: 20px;
+        font-weight: 300;
+        color: #8e5ba1;
+    }
+
+    /* Love Letter Section */
+    .love-letter {
+        max-width: 800px;
+        margin: 120px auto;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 25px;
+        padding: 50px 35px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .love-letter::before {
+        content: "💖";
+        position: absolute;
+        font-size: 180px;
+        color: rgba(255, 180, 220, 0.20);
+        top: -20px;
+        left: -10px;
+        animation: glowHeart 3s infinite alternate;
+    }
+
+    @keyframes glowHeart {
+        from { opacity: 0.2; transform: scale(0.9); }
+        to { opacity: 0.45; transform: scale(1.05); }
+    }
+
+    .love-letter h2 {
+        font-family: 'Great Vibes', cursive;
+        font-size: clamp(36px, 7vw, 60px);
+        margin-bottom: 25px;
+        color: #7b4a88;
+    }
+
+    .love-letter p {
+        font-family: 'Lora', serif;
+        font-size: 18px;
+        line-height: 1.9;
+        margin-bottom: 20px;
+        color: #5d3e6e;
+    }
+
+    .signature {
+        margin-top: 25px;
+        font-family: 'Great Vibes', cursive;
+        font-size: 32px;
+        color: #7b4a88;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 60px 20px;
+        font-size: 18px;
+        color: #6a4679;
+    }
+</style>
+</head>
+<body>
+
+<div class="main-title">
+    <h1>To My Happiness 💗</h1>
+    <p>Celebrating 6 Months of Love, Laughter & Pure Joy</p>
+</div>
+
+<!-- Floating Bubbles Container -->
+<div id="bubble-container"></div>
+
+<!-- Love Letter -->
+<section class="love-letter">
+    <h2>My Dearest Happiness,</h2>
+    <p>
+        These six months with you have been a dream I never want to wake up from.  
+        Every day, you sprinkle warmth into my soul, joy into my heart, and peace into my spirit.  
+        You are sunshine wrapped in softness, beauty wrapped in kindness,  
+        and love wrapped in the most precious heart.
+    </p>
+    <p>
+        You’ve shown me what it feels like to be truly loved.  
+        What it feels like to be seen.  
+        What it feels like to belong to someone so special that even forever feels too short.
+    </p>
+    <p>
+        Thank you, Happiness, for filling my life with meaning, brightness,  
+        and a sweetness I never imagined possible.  
+        I am grateful for your laughter, your heart, your patience, and your love.
+    </p>
+    <p>
+        I promise to cherish you, adore you, protect your peace,  
+        and love you in ways that words will never be enough to describe.
+    </p>
+
+    <div class="signature">Forever yours, Oluwaseun 💗</div>
+</section>
+
+<footer>
+    Here’s to us — and to many more beautiful moments to come ❤️  
+</footer>
+
+<script>
+const loveNotes = [
+    "Your smile lights up every corner of my heart 💗",
+    "Thank you for choosing me, my Happiness 💕",
+    "You make love feel effortless and beautiful ✨",
+    "Your voice is my favourite comfort 🥺",
+    "I cherish every second with you ❤️",
+    "You are my peace, my joy, my person 🌸",
+    "six months, endless love — and forever to go 💞",
+    "You make my world soft and sweet 💖",
+    "I love the way you love me 💗",
+    "You are my favourite blessing ❤️"
+];
+
+const container = document.getElementById("bubble-container");
+
+function createBubble() {
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    const size = Math.random() * 100 + 80; // 80px–180px
+    const left = Math.random() * 90;
+
+    bubble.style.width = size + "px";
+    bubble.style.height = size + "px";
+    bubble.style.left = left + "%";
+    bubble.style.animationDuration = (Math.random() * 6 + 10) + "s";
+
+    const text = document.createElement("div");
+    text.className = "bubble-text";
+    text.textContent = loveNotes[Math.floor(Math.random() * loveNotes.length)];
+
+    bubble.appendChild(text);
+
+    bubble.addEventListener("click", () => {
+        bubble.classList.toggle("open");
+    });
+
+    container.appendChild(bubble);
+
+    setTimeout(() => bubble.remove(), 16000);
+}
+
+setInterval(createBubble, 1200);
+</script>
+
+</body>
+</html>
